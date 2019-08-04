@@ -116,7 +116,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'statics')
 STATIC_URL = '/static/'
 
@@ -143,7 +142,11 @@ if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
 
+    # django pherroject secret key
+    SECRET_KEY = os.environ['SECRET_KEY']
+
     # AWS
+    AWS_LOCATION = 'static'
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 
