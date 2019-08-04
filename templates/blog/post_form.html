@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <p></p>
+    <h1>New post</h1>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ post_form.as_p }}
+        <button type="submit" class="save btn btn-outline-primary">保存</button>
+    </form>
+    <p></p>
+</div>
+{% endblock %}

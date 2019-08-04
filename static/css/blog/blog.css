@@ -1,0 +1,50 @@
+@import url(https://fonts.googleapis.com/css?family=Poiret+One);
+.hue {
+  background-image: linear-gradient(-45deg, hsla(62, 100%, 50%, .8), hsla(322, 100%, 50%, .8));
+  height:100vh; 
+  width:100%; 
+  padding:120px 0;
+  text-align: center;
+  animation: hue-rot 10s infinite alternate;
+}
+
+@keyframes hue-rot {
+ 100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@media (max-width: 1028px){
+  body{
+    font-size:4vw;
+  }
+}
+
+.centerstage {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loader{
+  filter:hue-rotate(0deg);
+  color: linear-gradient(45deg,#0f8,#08f);
+  animation:hue 5000ms infinite linear;
+}
+
+.jumbotron { 
+  background:url(https://cdn.pixabay.com/photo/2015/08/02/22/21/water-872016_1280.jpg) center no-repeat; 
+  background-size: cover;
+}
+
+.box-shadow {
+  box-shadow: 2px 2px 4px rgba(221, 221, 221, 0.452);
+  transition: 300ms;
+}
+
+.h-100 {
+  height: 100% !important;
+}
+
+.text-color {
+  color: white;
+}

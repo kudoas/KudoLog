@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load markdown %}
+{% block content %}
+<br>
+<div class="container">
+    <h2>Profile</h2>
+    {% if post.author.icon %}
+    <img src="{{ post.author.icon.url }}" alt="icon" class="img-thumbnail" style="text-align:center;" />
+    <br>
+    {% else %}
+    <i class="fas fa-user-circle fa-10x rounded-circle" style="max-width: 100%;height: auto;"></i>
+    <br>
+    {% endif %}
+    <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+            {% if post.author.display_name %}
+            <tr>
+                <th scope="row">ニックネーム</th>
+                <td>{{ post.author.display_name }}</td>
+            </tr>
+            {% endif %}
+            {% if post.author.gender %}
+            <tr>
+                <th scope="row">性別</th>
+                <td>{{ post.author.gender }}</td>
+            </tr>
+            {% endif %}
+            {% if post.author.birth_year and post.author.birth_month %}
+            <tr>
+                <th scope="row">誕生日</th>
+                <td>{{ post.author.birth_year }}年 {{ post.author.birth_month }}月</td>
+            </tr>
+            {% endif %}
+            {% if post.author.location %}
+            <tr>
+                <th scope="row">住んでいる地域</th>
+                <td>{{ post.author.location }}</td>
+            </tr>
+            {% endif %}
+            {% if post.author.favorite_word %}
+            <tr>
+                <th scope="row">好きな言葉</th>
+                <td>{{ post.author.favorite_word }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th scope="row">全投稿数</th>
+                <td>{{ num_posts }}</td>
+            </tr>
+            <tr>
+                <th scope="row">直近3件の投稿</th>
+                <td>
+                    {% for post in late_posts %}
+                    {{ post.title }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% for post in late_posts %}
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header alert-primary">
+                <h2 class="posttitle loader">{{ post.title }}</h2>
+            </div>
+            <div class="card-body">
+                <p class="postcontent">{{ post.text | safe | markdown_to_html | linebreaksbr}}</p>
+            </div>
+            <div class="card-footer">
+                <p><a href="{% url 'accounts:detail_profile' post.id %}">
+                        筆者:{{ post.author.display_name }}@{{ post.author.username }}
+                    </a>
+                </p>
+                <p>作成日:{{ post.created_date }}
+                    <br>更新日:{{ post.published_date }}</p>
+                {% if user.is_authenticated and request.user == post.author %}
+                <a class="btn btn-outline-primary" href="{% url 'blog:post_edit' post.pk %}">
+                    <span class="glyphcon glyphcon-pencil">編集</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% endblock %}

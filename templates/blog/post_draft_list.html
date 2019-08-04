@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load markdown %}
+{% block content %}
+<div class="container">
+    <p></p>
+    <div class="col-sm-12">
+        <div class="alert alert-primary" role="alert">
+            下書き一覧
+        </div>
+    </div>
+    <div class="col-sm-12">
+        {% for post in post_list %}
+        <div class="card">
+            <div class="card-header alert-primary">
+                <h2><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            </div>
+            <div class="card-body">
+                <p>{{ post.text | markdown_to_html | linebreaksbr }}</p>
+            </div>
+            <div class="card-footer">
+                <p>筆者:{{ post.author.display_name }}@{{ post.author.username }}
+                    <br>発行日: {{ post.created_date }}</p>
+                <p><a class="btn btn-outline-primary" href="{% url 'blog:post_publish' pk=post.pk %}">投稿する</a></p>
+            </div>
+        </div>
+        <p></p>
+        {% empty %}
+        <p>下書きはありません</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

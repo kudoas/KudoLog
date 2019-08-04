@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load markdown %}
+{% block content %}
+<br>
+<div class="container">
+    <h2>Profile</h2>
+    {% if user.icon %}
+    <img src="{{ user.icon.url }}" alt="icon" class="img-thumbnail" style="text-align:center;" />
+    <br>
+    {% else %}
+    <i class="fas fa-user-circle fa-10x rounded-circle" style="max-width: 100%;height: auto;"></i>
+    <br>
+    {% endif %}
+    <table class="table">
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">nickname</th>
+                <td>{{ user.display_name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th scope="row">gender</th>
+                <td>{{ user.gender }}</td>
+            </tr>
+            <tr>
+                <th scope="row">birthdate</th>
+                <td>{{ user.birth_year }}年 {{ user.birth_month }}月</td>
+            </tr>
+            <tr>
+                <th scope="row">location</th>
+                <td>{{ user.location }}</td>
+            </tr>
+            <tr>
+                <th scope="row">favorite word</th>
+                <td>{{ user.favorite_word }}</td>
+            </tr>
+            <tr>
+                <th scope="row">全投稿数</th>
+                <td>{{ num_posts }}</td>
+            </tr>
+            <tr>
+                <th scope="row">直近3件の投稿</th>
+                <td>
+                    {% for post in late_posts %}
+                    {{ post.title }}<br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% for post in late_posts %}
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header alert-primary">
+                <h2 class="posttitle loader">{{ post.title }}</h2>
+            </div>
+            <div class="card-body">
+                <p class="postcontent">{{ post.text | safe | markdown_to_html | linebreaksbr }}</p>
+            </div>
+            <div class="card-footer">
+                <p><a href="{% url 'accounts:detail_profile' post.id %}">
+                        筆者:{{ post.author.display_name }}@{{ post.author.username }}
+                    </a>
+                </p>
+                <p>作成日:{{ post.created_date }}
+                    <br>更新日:{{ post.published_date }}</p>
+                {% if user.is_authenticated and request.user == post.author %}
+                <a class="btn btn-outline-primary" href="{% url 'blog:post_edit' post.pk %}">
+                    <span class="glyphcon glyphcon-pencil">編集</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+    {% if user.is_authenticated and request.user.id == user.id and user.icon %}
+    <h3>名前の編集</h3>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ rename_form.as_p }}
+        <button type="submit" class="save btn btn-outline-primary">変更を保存</button>
+    </form>
+    <br><br>
+    <h3>その他の編集</h3>
+    <form method="POST" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ profile_form.as_p }}
+        <button type="submit" class="save btn btn-outline-primary">変更を保存</button>
+    </form>
+    {% endif %}
+</div>
+<br>
+{% endblock %}
