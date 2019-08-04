@@ -58,7 +58,7 @@ def edit_profile(request, user_id):
     if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and rename_form.is_valid():
         user.display_name = rename_form.cleaned_data['display_name']
         user.save()
-        return redirect('accounts:detail_profile', user_id=user_id)
+        return redirect('accounts:edit_profile', user_id=user_id)
 
     if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and profile_form.is_valid():
         user.icon = profile_form.cleaned_data['icon']
@@ -68,7 +68,7 @@ def edit_profile(request, user_id):
         user.location = profile_form.cleaned_data['location']
         user.favorite_word = profile_form.cleaned_data['favorite_word']
         user.save()
-        return redirect('accounts:detail_profile', user_id=user_id)
+        return redirect('accounts:edit_profile', user_id=user_id)
 
     context = {'profile_form': profile_form,
                'rename_form': rename_form, 'num_posts': num_posts, 'late_posts': late_posts}
