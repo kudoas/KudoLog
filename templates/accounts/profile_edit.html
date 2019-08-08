@@ -3,14 +3,16 @@
 {% block content %}
 <br>
 <div class="container">
-    <h2>Profile</h2>
-    {% if user.icon %}
-    <img src="{{ user.icon.url }}" alt="icon" class="img-thumbnail" style="text-align:center;" />
+    <div class="text-center">
+        <h1>プロフィール</h1>
+        {% if user.icon %}
+        <img src="{{ user.icon.url }}" alt="icon" class="img-thumbnail" style="text-align:center;" />
+        <br>
+        {% else %}
+        <i class="fas fa-user-circle fa-10x rounded-circle" style="max-width: 100%; height: auto;"></i>
+        {% endif %}
+    </div>
     <br>
-    {% else %}
-    <i class="fas fa-user-circle fa-10x rounded-circle" style="max-width: 100%;height: auto;"></i>
-    <br>
-    {% endif %}
     <table class="table">
         <thead>
         </thead>
@@ -77,21 +79,31 @@
             </div>
         </div>
     </div>
-    <br>
     {% endfor %}
-    <h3>名前の編集</h3>
-    <form method="POST" class="post-form">
-        {% csrf_token %}
-        {{ rename_form.as_p }}
-        <button type="submit" class="save btn btn-outline-primary">変更を保存</button>
-    </form>
-    <br><br>
-    <h3>その他の編集</h3>
-    <form method="POST" class="post-form" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ profile_form.as_p }}
-        <button type="submit" class="save btn btn-outline-primary">変更を保存</button>
-    </form>
+    <br>
+    <div class="card">
+        <div class="container">
+            <div class="card-title center">
+                <br>
+                <h2>プロフィールの編集</h2>
+            </div>
+            <hr>
+            <h3>名前の編集</h3>
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                {{ rename_form.as_p }}
+                <button type="submit" class="save btn btn-outline-primary">変更を保存</button>
+            </form>
+            <br><br>
+            <h3>その他の編集</h3>
+            <form method="POST" class="post-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ profile_form.as_p }}
+                <button type="submit" class="save btn btn-outline-primary">変更を保存</button>
+            </form>
+            <br>
+        </div>
+    </div>
 </div>
 <br>
 {% endblock %}

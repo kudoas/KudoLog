@@ -4,7 +4,21 @@
 <form action="" method="POST">
     <div class="col-md-6 offset-md-3">
         <div class="card">
+            <div class="container">
+                <br>
+                <h2 class="card-title text-center">ログイン</h5>
+            </div>
             <div class="card-body">
+                <a class="btn btn-danger btn-lg btn-block"
+                    href="{% url 'social:begin' 'google-oauth2' %}">Googleアカウント</a>
+                <hr style="border: 0;
+                height: 1px;
+                background: #333;
+                background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc);
+                background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc);
+                background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc);
+                background-image:      -o-linear-gradient(left, #ccc, #333, #ccc);
+                ">
                 {{ form.non_field_errors }}
                 {% for field in form %}
                 {{ field }}
@@ -15,6 +29,11 @@
                 <input type="hidden" name="next" value="{{ next }}" />
                 {% csrf_token %}
             </div>
+            <ul class="list-group list-group-flush">
+                <li class="text-right list-group-item">はじめてのご利用ですか？
+                    <a class="btn btn-outline-success" href="{% url 'accounts:signup' %}">登録へ</a>
+                </li>
+            </ul>
         </div>
     </div>
 </form>
