@@ -13,7 +13,7 @@ KudoLogは登録ユーザーが記事投稿、コメントができる掲示板�
 - Heroku (インフラ)
 - Postgresql (開発・運用用DB)
 - AWS S3 (メディアストレージ)
-- GitHub OAuth Apps
+- (GitHub OAuth Apps)
 
 ### frontend
 
@@ -25,10 +25,10 @@ KudoLogは登録ユーザーが記事投稿、コメントができる掲示板�
 
 ### ユーザー管理
 - 管理ユーザー登録機能(username, email, password)
-- GitHubアカウント認証
 - ログイン/ログアウト機能
 - プロフィール作成機能
 - 画像アップロード機能(アイコン)
+- (GitHubアカウント認証)
 
 ### 記事(登録ユーザーのみ)
 - 記事投稿機能
