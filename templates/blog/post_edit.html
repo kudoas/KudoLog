@@ -7,9 +7,9 @@
     <form method="POST" class="post-form">
         {% csrf_token %}
         {{ post_form.as_p }}
+        {{ post_form.media }}
         <button type="submit" class="save btn btn-outline-primary">保存</button>
     </form>
-    {{ form.media }}
     <p></p>
 </div>
 {% endblock %}
