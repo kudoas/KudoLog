@@ -14,11 +14,11 @@ class UserManager(BaseUserManager):
 
     use_in_migrations = True
 
-    def _create_user(self, username, email, password=None, **extra_fields):
+    def _create_user(self, username, email=None, password=None, **extra_fields):
         if not username:
             raise ValueError('The given username must be set')
-        if not email:
-            raise ValueError('The given email must be set')
+        # if not email:
+        #     raise ValueError('The given email must be set')
         email = self.normalize_email(email)
 
         username = self.model.normalize_username(username)
@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, email, password=None, **extra_fields):
+    def create_user(self, username, email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(username, email, password, **extra_fields)
@@ -98,17 +98,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-
-
-# class Profile(models.Model):
-#     username = models.ForeignKey(
-#         'accounts.User', on_delete=models.CASCADE
-#     )
-#     icon = models.ImageField(upload_to='blog', blank=True)
-#     gender = models.CharField(max_length=20, blank=True)
-#     birth_date = models.DateField(null=True, blank=True)
-#     location = models.CharField(max_length=30, blank=True)
-#     favorite_words = models.CharField(max_length=50, blank=True)
-
-#     def __str__(self):
-#         return str(self.user)
