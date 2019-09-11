@@ -4,7 +4,7 @@
 <div class="container">
     <p></p>
     <h1>Edit post</h1>
-    <form method="POST" class="post-form">
+    <form method="POST" class="post-form" enctype="multipart/form-data">
         {% csrf_token %}
         {{ post_form.as_p }}
         {{ post_form.media }}

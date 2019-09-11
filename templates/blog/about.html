@@ -1,33 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
-<br>
 <div class="container">
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4"><span style="font-family: 'Dancing Script', cursive;">KudoLog</span>とは</h1>
-            <p class="lead"><span style="font-family: 'Dancing Script', cursive;">KudoLog</span>は自由に書き込める掲示板アプリです。</p>
-        </div>
-    </div>
-    <div class="container">
+    <h1 style="text-align: center"><span style="font-family: 'Dancing Script', cursive;">KudoLog</span></h1>
+    <article>
+        <h2><span style="font-family: 'Dancing Script', cursive;">KudoLog</span>とは</h2>
+        <p class="lead"><span style="font-family: 'Dancing Script', cursive;">KudoLog</span>は自由に書き込める掲示板アプリです。</p>
         <h2><span style="font-family: 'Dancing Script', cursive;">KudoLog</span>の使い方</h2>
         <p>ユーザー登録しない場合とする場合で機能が異なります。</p>
-        <h3>登録なし</h3>
-        <p>ユーザー登録せずにそれぞれの記事を閲覧できます。</p>
-        <h3>登録あり</h3>
-        <p>登録ユーザーは、
-            <li>プロフィール作成</li>
-            <li>記事の下書き作成</li>
-            <li>記事の発行</li>
-            <li>コメント</li>
-            が行えます。
-        </p>
-        <p>記事を作成するとDraftへ保存されます。Draftの記事を投稿すると公開されます。
-            <br>自分の記事に来たコメントに返信する場合は、<strong>@誰々</strong>のようにメンションを取りましょう。
-        </p>
+        <section>
+            <h3>登録なし</h3>
+            <p>それぞれの記事を閲覧できます。</p>
+            <h3>登録あり</h3>
+            <p>登録ユーザーは以下のことが行えます。</p>
+            <ul>
+                <li>プロフィール作成</li>
+                <li>記事の下書き作成</li>
+                <li>記事の発行</li>
+                <li>記事に対するコメント</li>
+            </ul>
+            <p>記事を作成するとDraftへ保存されます。Draftの記事を投稿すると公開されます。
+                <br>自分の記事に来たコメントに返信する場合は、<strong>@誰々</strong>のようにメンションを取りましょう。
+            </p>
+        </section>
         <h2>注意事項</h2>
         <p>下書きを編集し保存するとそのまま投稿されます。再編集したい場合は投稿済みの記事からできます。</p>
         <h2>その他</h2>
         <p>内容は自由ですが、誹謗中傷はないようにお願い致します。</p>
-    </div>
+    </article>
 </div>
 {% endblock %}

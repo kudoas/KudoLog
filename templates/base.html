@@ -15,83 +15,92 @@
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
 
-  <!-- mediam editor -->
-  <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css"
-    type="text/css" media="screen" charset="utf-8">
-
   <!-- font awesome -->
   <script src="https://kit.fontawesome.com/0686cad4ec.js"></script>
 
-  <title></title>
-</head>
-
-<body style="font-family: 'Noto Sans JP', sans-serif;">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top box-shadow">
-    <a class="navbar-brand" href="{% url 'blog:post_list' %}"
-      style="font-family: 'Dancing Script', cursive;">KudoLog</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'blog:about' %}"><span
-              style="font-family: 'Dancing Script', cursive;">KudoLog</span>とは</a>
-        </li>
-        {% if user.is_authenticated %}
-        <li class="nav-item active">
-          <a class="nav-item nav-link" href="{% url 'accounts:edit_profile' user.id%}">Welcome:
-            {{ user.display_name }}
-            {% if user.icon %}
-            <img src="{{ user.icon.url }}" class="img-thumbnail" width="30" height="30" />
-            {% else %}
-            <i class="fas fa-user-circle"></i>
-            {% endif %}
-          </a>
-        </li>
-        <li class=" nav-item active">
-          <a class="nav-item nav-link" href="{% url 'blog:post_new' %}">New Post <i class="fas fa-vote-yea"></i></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-item nav-link" href="{% url 'blog:post_draft_list' %}">Drafts <i
-              class="fas fa-pencil-alt"></i></a>
-        </li>
-        <li>
-          <a class="nav-item nav-link" href="{% url 'logout' %}">Log out <i class="fas fa-sign-out-alt"></i></a>
-        </li>
-        {% else %}
-        <li>
-          <a class="nav-item nav-link" href="{% url 'login' %}">Guest <span class="fa fa-user"
-              aria-hidden="true"></span></a>
-        </li>
-        <li>
-          <a class="nav-item nav-link" href="{% url 'login' %}" aria-label="Login">
-            Log in <i class="fas fa-sign-in-alt"></i>
-          </a>
-        </li>
-        <li>
-          <a class="nav-item nav-link" href="{% url 'accounts:signup' %}">SignUp <i class="fas fa-user-plus"></i></a>
-        </li>
-        {% endif %}
-      </ul>
-      <form class="form-inline my-2 my-lg-0" action="{% url 'blog:post_list' %}">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-      </form>
-
-    </div>
-  </nav>
-  <nav class="navbar navbar-light bg-light">
-    <a class="navbar-brand" href="#">Secret Navbar</a>
-  </nav>
-
-  {% block content %}
+  <!-- static files -->
+  {% block link %}
   {% endblock %}
 
-  <footer class="bg-light d-flex justify-content-center align-items-center flex-column" style="height:100px">
+  <title>KudoLog</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top box-shadow">
+      <a class="navbar-brand" href="{% url 'blog:post_list' %}"
+        style="font-family: 'Dancing Script', cursive;">KudoLog</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'blog:about' %}"><span
+                style="font-family: 'Dancing Script', cursive;">KudoLog</span>とは</a>
+          </li>
+          {% if user.is_authenticated %}
+          <li class="nav-item active">
+            <a class="nav-item nav-link" href="{% url 'accounts:edit_profile' user.id%}">Welcome:
+              {{ user.display_name }}
+              {% if user.icon %}
+              <img src="{{ user.icon.url }}" alt='' class="img-thumbnail" width="30" height="30" />
+              {% else %}
+              <i class="fas fa-user-circle"></i>
+              {% endif %}
+            </a>
+          </li>
+          <li class=" nav-item active">
+            <a class="nav-item nav-link" href="{% url 'blog:post_new' %}">New Post <i class="fas fa-vote-yea"></i></a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-item nav-link" href="{% url 'blog:post_draft_list' %}">Drafts <i
+                class="fas fa-pencil-alt"></i></a>
+          </li>
+          <li>
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Log out <i class="fas fa-sign-out-alt"></i></a>
+          </li>
+          {% else %}
+          <li>
+            <a class="nav-item nav-link" href="{% url 'login' %}">Guest <span class="fa fa-user"
+                aria-hidden="true"></span></a>
+          </li>
+          <li>
+            <a class="nav-item nav-link" href="{% url 'login' %}" aria-label="Login">
+              Log in <i class="fas fa-sign-in-alt"></i>
+            </a>
+          </li>
+          <li>
+            <a class="nav-item nav-link" href="{% url 'accounts:signup' %}">SignUp <i class="fas fa-user-plus"></i></a>
+          </li>
+          {% endif %}
+        </ul>
+        {% if category_form %}
+        <form action="" method="GET">
+          {{ category_form }}
+          <button type="submit">検索</button>
+        </form>
+        {% endif %}
+        <form class="form-inline my-2 my-lg-0" action="{% url 'blog:post_list' %}">
+          <input class="form-control mr-sm-2" type="search" placeholder="Title or Text or User" aria-label="Search"
+            name="keyword">
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">Secret Navbar</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="bg-light d-flex justify-content-center align-items-center flex-column" style="height:100px;">
     <div>
       <!-- <a href="{% url 'blog:introduction' %}">AboutMe</a> -->
       <a href="{% url 'blog:policy' %}">規約</a>

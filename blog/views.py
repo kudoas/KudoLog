@@ -5,10 +5,10 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.decorators.http import require_POST
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
+from django.views.generic import DetailView, ListView, TemplateView
 
 from accounts.models import User
-from .forms import PostForm, CommentForm
+from .forms import PostModelForm, PostForm, CategorySearchForm, CommentForm
 from .models import Comment, Post
 
 
@@ -29,6 +29,11 @@ class PostListView(ListView):
     template_name = 'blog/post_list.html'
     paginate_by = 6
 
+    def get_context_data(self):
+        context = super().get_context_data()
+        context['category_form'] = CategorySearchForm(self.request.GET)
+        return context
+
     def get_queryset(self):
         queryset = Post.objects.filter(
             published_date__lte=timezone.now()
@@ -36,8 +41,17 @@ class PostListView(ListView):
         keyword = self.request.GET.get('keyword')
         if keyword:
             queryset = queryset.filter(
-                Q(title__icontains=keyword) | Q(text__icontains=keyword)
+                Q(title__icontains=keyword) | Q(text__icontains=keyword) |
+                Q(author__display_name__icontains=keyword) |
+                Q(author__username__icontains=keyword)
             )
+
+        category_form = CategorySearchForm(self.request.GET)
+        if category_form.is_valid():
+            category = category_form.cleaned_data['category']
+            if category:
+                queryset = queryset.filter(category=category)
+
         return queryset
 
 
@@ -47,19 +61,30 @@ class PostDetailView(DetailView):
 
 
 def create_post(request):
-    post_form = PostForm(request.POST or None)
-    if request.method == 'POST' and post_form.is_valid:
-        post = post_form.save(commit=False)
+    form = PostForm(request.POST, request.FILES or None)
+    if request.method == 'POST' and form.is_valid():
+        post = Post()
+        post.post_img = form.cleaned_data['post_img']
+        post.title = form.cleaned_data['title']
+        post.category = form.cleaned_data['category']
+        post.text = form.cleaned_data['text']
         if request.user.is_authenticated:
             post.author = request.user
-        post.save()
+        Post.objects.create(
+            post_img=post.post_img,
+            title=post.title,
+            category=post.category,
+            author=post.author,
+            text=post.text,
+            created_date=timezone.now()
+        )
         return redirect('blog:post_draft_list')
-    return render(request, 'blog/post_form.html', {'post_form': post_form})
+    return render(request, 'blog/post_form.html', {'post_form': form})
 
 
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    post_form = PostForm(request.POST or None, instance=post)
+    post_form = PostModelForm(request.POST or None, instance=post)
     if request.method == 'POST' and post_form.is_valid():
         post_form.save(commit=False)
         post.published_date = timezone.now()

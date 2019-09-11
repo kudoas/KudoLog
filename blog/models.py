@@ -10,8 +10,24 @@ from accounts.models import User
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_img = models.ImageField(upload_to='post', blank=True, null=True)
     title = models.CharField(max_length=200)
-    text = MarkdownxField(help_text='Markdown形式に対応しています')
+    CATEGORY_CHOICES = (
+        ('general', '一般'),
+        ('world', '世の中'),
+        ('political economy', '政治と経済'),
+        ('liviing', '暮らし'),
+        ('study', '学び'),
+        ('technology', 'テクノロジー'),
+        ('interesting', 'おもしろ'),
+        ('entertainment', 'エンタメ'),
+        ('anime&games', 'アニメとゲーム'),
+        ('home appliance', '家電'),
+    )
+    category = models.CharField(
+        max_length=50, blank=True, null=True, choices=CATEGORY_CHOICES
+    )
+    text = MarkdownxField(help_text='Markdownに対応しています')
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
@@ -31,7 +47,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(
-        'blog.Post', related_name='comments', on_delete=models.CASCADE)
+        'blog.Post', related_name='comments', on_delete=models.CASCADE
+    )
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     create_date = models.DateTimeField(default=timezone.now)

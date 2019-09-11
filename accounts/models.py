@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -64,7 +65,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('staff status'),
         default=False,
         help_text=_(
-            'Designates whether the user can log into this admin site.'),
+            'Designates whether the user can log into this admin site.'
+        ),
     )
     is_active = models.BooleanField(
         _('active'),
@@ -75,12 +77,58 @@ class User(AbstractBaseUser, PermissionsMixin):
         ),
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    icon = models.ImageField(upload_to='account', blank=True)
 
-    icon = models.ImageField(upload_to='blog', blank=True)
-    gender = models.CharField(max_length=20, blank=True)
-    birth_year = models.CharField(max_length=20, blank=True)
-    birth_month = models.CharField(max_length=20, blank=True)
-    location = models.CharField(max_length=30, blank=True)
+    GENDER_CHOICES = (
+        ('女性', '女性',),
+        ('男性', '男性',),
+        ('秘密', '秘密',)
+    )
+    gender = models.CharField(
+        max_length=50, blank=True, null=True, choices=GENDER_CHOICES
+    )
+
+    def make_select_object(from_x, to_y, dates, increment=True):
+        if increment:
+            for i in range(from_x, to_y):
+                dates.append([i, i])
+            else:
+                for i in range(from_x, to_y, -1):
+                    dates.append([i, i])
+        return dates
+
+    years = []
+    current_year = datetime.now().year
+    BIRTH_YEAR_CHOICES = make_select_object(
+        current_year+1, current_year-80, years
+    )
+    for i in range(len(BIRTH_YEAR_CHOICES)):
+        BIRTH_YEAR_CHOICES[i] = [str(j) for j in BIRTH_YEAR_CHOICES[i]]
+    birth_year = models.CharField(
+        max_length=20, blank=True, null=True, choices=BIRTH_YEAR_CHOICES
+    )
+
+    months = []
+    BIRTH_MONTH_CHOICES = make_select_object(1, 13, months)
+    for i in range(len(BIRTH_MONTH_CHOICES)):
+        BIRTH_MONTH_CHOICES[i] = [str(j) for j in BIRTH_MONTH_CHOICES[i]]
+    birth_month = models.CharField(
+        max_length=20, blank=True, null=True, choices=BIRTH_MONTH_CHOICES
+    )
+
+    LOCATION_CHOICES = (
+        ('北海道', '北海道',),
+        ('東北', '東北',),
+        ('関東', '関東',),
+        ('中部', '中部',),
+        ('近畿', '近畿',),
+        ('中国', '中国',),
+        ('四国', '四国',),
+        ('九州', '九州',)
+    )
+    location = models.CharField(
+        max_length=50, blank=True, null=True, choices=LOCATION_CHOICES
+    )
     favorite_word = models.CharField(max_length=50, blank=True)
 
     objects = UserManager()
