@@ -25,7 +25,7 @@ class Post(models.Model):
         ('home appliance', '家電'),
     )
     category = models.CharField(
-        max_length=50, blank=True, null=True, choices=CATEGORY_CHOICES
+        max_length=50, blank=True, choices=CATEGORY_CHOICES
     )
     text = MarkdownxField(help_text='Markdownに対応しています')
     created_date = models.DateTimeField(default=timezone.now)
