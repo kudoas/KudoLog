@@ -85,7 +85,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('秘密', '秘密',)
     )
     gender = models.CharField(
-        max_length=50, blank=True, null=True, choices=GENDER_CHOICES
+        max_length=50, blank=True, choices=GENDER_CHOICES
     )
 
     def make_select_object(from_x, to_y, dates, increment=True):
@@ -105,7 +105,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     for i in range(len(BIRTH_YEAR_CHOICES)):
         BIRTH_YEAR_CHOICES[i] = [str(j) for j in BIRTH_YEAR_CHOICES[i]]
     birth_year = models.CharField(
-        max_length=20, blank=True, null=True, choices=BIRTH_YEAR_CHOICES
+        max_length=20, blank=True, choices=BIRTH_YEAR_CHOICES
     )
 
     months = []
@@ -113,7 +113,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     for i in range(len(BIRTH_MONTH_CHOICES)):
         BIRTH_MONTH_CHOICES[i] = [str(j) for j in BIRTH_MONTH_CHOICES[i]]
     birth_month = models.CharField(
-        max_length=20, blank=True, null=True, choices=BIRTH_MONTH_CHOICES
+        max_length=20, blank=True, choices=BIRTH_MONTH_CHOICES
     )
 
     LOCATION_CHOICES = (
@@ -127,7 +127,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('九州', '九州',)
     )
     location = models.CharField(
-        max_length=50, blank=True, null=True, choices=LOCATION_CHOICES
+        max_length=50, blank=True, choices=LOCATION_CHOICES
     )
     favorite_word = models.CharField(max_length=50, blank=True)
 
