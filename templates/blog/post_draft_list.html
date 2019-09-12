@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load markdown %}
 {% block content %}
+<br>
 <div class="container">
-    <p></p>
     <div class="col-sm-12">
         <div class="alert alert-primary" role="alert">
             下書き一覧
@@ -23,7 +23,7 @@
                 <p><a class="btn btn-outline-primary" href="{% url 'blog:post_publish' pk=post.pk %}">投稿する</a></p>
             </div>
         </div>
-        <p></p>
+        <br>
         {% empty %}
         <p>下書きはありません</p>
         {% endfor %}

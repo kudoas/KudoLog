@@ -7,8 +7,9 @@
 {% endblock %}
 
 {% block content %}
+<br>
 <div class="container">
-    <h1>New post</h1>
+    <h1>記事の作成</h1>
     <form method="POST" class="post-form" enctype="multipart/form-data">
         {% csrf_token %}
         {{ post_form.as_p }}

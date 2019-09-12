@@ -6,11 +6,14 @@
     <div class="text-center">
         <h1>プロフィール</h1>
         {% if user.icon %}
-        <img src="{{ user.icon.url }}" alt="icon" class="img-thumbnail" style="text-align:center;" />
+        <img src="{{ user.icon.url }}" alt="icon" class="img-thumbnail" style="text-align:center;" data-toggle="modal"
+            data-target="#iconModal" />
         <br>
         {% else %}
-        <i class="fas fa-user-circle fa-10x rounded-circle" style="max-width: 100%; height: auto;"></i>
+        <i class="fas fa-user-circle fa-10x rounded-circle" style="max-width: 100%; height: auto;" data-toggle="modal"
+            data-target="#iconModal"></i>
         {% endif %}
+        </button>
     </div>
     <br>
     <table class="table">
@@ -18,40 +21,40 @@
         </thead>
         <tbody>
             <tr>
-                <th scope="row">nickname</th>
+                <th scope="row">ユーザー名</th>
                 <td>{{ user.display_name }}</td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#displayNameModal">
-                        名前の編集
+                        編集
                     </button>
                 </td>
             </tr>
             <tr>
-                <th scope="row">email</th>
+                <th scope="row">メールアドレス</th>
                 <td>{{ user.email }}</td>
                 <td> </td>
             </tr>
             <tr>
-                <th scope="row">gender</th>
+                <th scope="row">性別</th>
                 <td>{{ user.gender }}</td>
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profileModal">
-                        その他の編集
+                        編集
                     </button>
                 </td>
             </tr>
             <tr>
-                <th scope="row">birthdate</th>
+                <th scope="row">誕生年月</th>
                 <td>{{ user.birth_year }}年 {{ user.birth_month }}月</td>
                 <td> </td>
             </tr>
             <tr>
-                <th scope="row">location</th>
+                <th scope="row">住んでいる地域</th>
                 <td>{{ user.location }}</td>
                 <td> </td>
             </tr>
             <tr>
-                <th scope="row">favorite word</th>
+                <th scope="row">好きな言葉</th>
                 <td>{{ user.favorite_word }}</td>
                 <td> </td>
             </tr>
@@ -97,13 +100,34 @@
     </div>
     {% endfor %}
 
+    <!-- iconModal -->
+    <div class="modal fade" id="iconModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">アイコンの編集</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" class="post-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ icon_form.as_p }}
+                        <button type="submit" class="save btn btn-outline-primary">変更を保存</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- displayNameModal -->
     <div class="modal fade" id="displayNameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">ユーザー名の編集</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -124,7 +148,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">その他の編集</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">プロフィール情報の編集</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
