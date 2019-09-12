@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <p></p>
-    <h1>Edit post</h1>
+    <h1>記事の編集</h1>
     <form method="POST" class="post-form" enctype="multipart/form-data">
         {% csrf_token %}
         {{ post_form.as_p }}
