@@ -17,4 +17,16 @@
         <button type="submit" class="save btn btn-outline-primary">保存</button>
     </form>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    const elements = document.getElementsByClassName('markdownx');
+    for (element of elements) {
+        element.addEventListener('markdownx.update', event => {
+            for (const block of document.querySelectorAll('pre code')) {
+                hljs.highlightBlock(block);
+            }
+        });
+    }
+</script>
 {% endblock %}
