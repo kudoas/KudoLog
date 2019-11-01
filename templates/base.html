@@ -18,6 +18,11 @@
   <!-- font awesome -->
   <script src="https://kit.fontawesome.com/0686cad4ec.js"></script>
 
+  <!-- highlight.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/vs.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
   <!-- static files -->
   {% block link %}
   {% endblock %}
@@ -43,7 +48,9 @@
           {% if user.is_authenticated %}
           <li class="nav-item active">
             <a class="nav-item nav-link" href="{% url 'accounts:edit_profile' user.id%}">Welcome:
+              {% if user.display_name %}
               {{ user.display_name }}
+              {% else %}名無し{% endif %}
               {% if user.icon %}
               <img src="{{ user.icon.url }}" alt='' class="img-thumbnail" width="30" height="30" />
               {% else %}
