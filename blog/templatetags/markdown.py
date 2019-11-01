@@ -27,10 +27,9 @@ class EscapeHtml(Extension):
 
 @register.filter
 def markdown_to_html_with_escape(text):
-    """
-    コメントで悪質な処理が載せられること(js等)を防ぐ
-    """
     extensions = MARKDOWNX_MARKDOWN_EXTENSIONS + [EscapeHtml()]
-    html = markdown.markdown(text, extensions=extensions,
-                             extension_configs=MARKDOWNX_MARKDOWN_EXTENSION_CONFIGS)
+    html = markdown.markdown(text,
+                             extensions=extensions,
+                             extension_configs=MARKDOWNX_MARKDOWN_EXTENSION_CONFIGS
+                             )
     return mark_safe(html)

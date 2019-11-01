@@ -12,7 +12,6 @@ from .models import User
 
 
 class Login(LoginView):
-
     form_class = LoginForm
     template_name = 'accounts/login.html'
 
