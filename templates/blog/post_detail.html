@@ -25,7 +25,9 @@
         </button>
         {% include 'includes/post-delete-modal.html' %}
         {% endif %}
+        {% if post.post_img %}
         <img src=" {{ post.post_img.url }}" alt="post-image" class="post-image">
+        {% endif %}
     </header>
     <section>
         {{ post.text | safe | markdown_to_html}}
