@@ -1,0 +1,67 @@
+h1 {
+  margin: 22px 0;
+  text-align: center;
+}
+
+.date {
+  text-align: right;
+}
+
+.post-image {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
+
+h2,
+h3 {
+  padding: 0.25em 0.5em;
+  border-left: solid 5px;
+  border-color: rgb(29, 245, 21);
+}
+
+article section img {
+  width: 60%;
+  height: auto;
+  display: block;
+  margin: auto;
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+.markdownx-preview img {
+  width: 60%;
+  height: auto;
+  display: block;
+  margin: auto;
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.8);
+}
+
+blockquote {
+  box-sizing: border-box;
+  position: relative;
+  margin: 1.5em 0;
+  padding: 13px 15px 13px 25px;
+  border: solid 2px #464646;
+  color: #464646;
+  box-shadow: 0 0 black;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 40px;
+  margin-inline-end: 40px;
+}
+
+footer {
+  text-align: center;
+  color: #464646;
+}
+
+.comment {
+  width: 100%;
+  padding: 15px;
+  margin: auto;
+}
+
+.content {
+  padding: 15px;
+}

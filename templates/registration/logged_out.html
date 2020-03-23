@@ -1,17 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<p></p>
 <div class="container">
     <p>無事ログアウトできました。<br>またのご利用お待ちしております。</p>
     <p>3秒後にトップページに移動します。</p>
 </div>
-<p></p>
-
-<SCRIPT LANGUAGE="JavaScript">
+<script language="JavaScript">
     function autoLink() {
         location.href = "{% url 'blog:post_list' %}";
     }
     setTimeout("autoLink()", 3000);
-</SCRIPT>
-
+</script>
 {% endblock %}

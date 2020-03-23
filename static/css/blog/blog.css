@@ -1,5 +1,11 @@
+h1 {
+  margin: 22px 0;
+  text-align: center;
+}
+
 .jumbotron {
-  background: url(https://cdn.pixabay.com/photo/2015/08/02/22/21/water-872016_1280.jpg) center no-repeat;
+  background: url(https://cdn.pixabay.com/photo/2015/08/02/22/21/water-872016_1280.jpg) center
+    no-repeat;
   background-size: cover;
 }
 
@@ -14,4 +20,8 @@
 
 .text-color {
   color: white;
+}
+
+.img {
+  width: 100%;
 }

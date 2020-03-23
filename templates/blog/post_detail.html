@@ -2,74 +2,48 @@
 {% load static %}
 {% load markdown %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/blog/blog.css' %}" />
-<br>
-<div class="container">
-    <div class="col-sm-12">
-        <div class="card">
-            <div class="card-header alert-primary">
-                <h2 class="posttitle loader">{{ post.title }}</h2>
-            </div>
-            <div class="card-body">
-                <p class="postcontent">{{ post.text | safe | markdown_to_html}}</p>
-            </div>
-            <div class="card-footer">
-                <p><a href="{% url 'accounts:detail_profile' post.id %}">
-                        筆者:{{ post.author.display_name }}@{{ post.author.username }}
-                    </a>
-                </p>
-                <p>作成日:{{ post.created_date }}
-                    <br>更新日:{{ post.published_date }}</p>
-                {% if user.is_authenticated and request.user == post.author %}
-                <a class="btn btn-outline-primary" href="{% url 'blog:post_edit' post.pk %}">
-                    <span class="glyphcon glyphcon-pencil">編集</span>
-                </a>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
-                    削除
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">確認</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                本当に削除しますか？
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                                <form method="post" action="{% url 'blog:post_remove' pk=post.pk %}">{% csrf_token %}
-                                    <button class="btn btn-danger" type="submit">削除</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-                {% if user.is_authenticated %}
-                <a class="btn btn-outline-primary" href="{% url 'blog:add_comment_to_post' pk=post.pk %}">コメントする</a>
-                {% endif %}
-            </div>
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog/post.css' %}" />
+{% endblock%}
+<article class="container">
+    <header>
+        <h1>{{ post.title }}</h1>
+        <div class="date">
+            <p>
+                Published:{{ post.created_date.date }} Edited:{{ post.published_date.date }}
+                [<a href="#">{{post.category}}</a>]
+            </p>
         </div>
-    </div>
-    <br>
-    <div class="card">
-        {% for comment in post.comments.all %}
-        {% if user.is_authenticated or comment.approved_comment %}
-        {{ comment.created_date }}
+        {% if user.is_authenticated and request.user == post.author %}
+        <a class="btn btn-outline-primary" href="{% url 'blog:post_edit' post.pk %}">
+            <span class="glyphcon glyphcon-pencil">編集</span>
+        </a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+            削除
+        </button>
+        {% include 'includes/post-delete-modal.html' %}
         {% endif %}
-        <div class="card">
-            <div class="container">
-                <p></p>
-                <p>{{ comment.text|safe|linebreaksbr }}</p>
-                <p> 投稿者:{{ comment.author.display_name }}@{{ comment.author.username }}</p>
-            </div>
+        <img src=" {{ post.post_img.url }}" alt="post-image" class="post-image">
+    </header>
+    <section>
+        {{ post.text | safe | markdown_to_html}}
+    </section>
+    <footer>
+        <p>Text {{ post.author.display_name }}@{{ post.author.username }}</p>
+    </footer>
+</article>
+<section id="comment" class="container">
+    {% if user.is_authenticated %}
+    <a class="btn btn-outline-primary" href="{% url 'blog:add_comment_to_post' pk=post.pk %}">コメントする</a>
+    {% endif %}
+    {% for comment in post.comments.all %}
+    <div class="card">
+        <div class="content">
+            <p> 投稿者:{{ comment.author.display_name }}@{{ comment.author.username }}
+                <br>{{ comment.create_date }}</br></p>
+            <p>{{ comment.text|safe|linebreaksbr }}</p>
             {% if not comment.approved_comment %}
             <a class="btn btn-outline-primary" href="{% url 'blog:comment_approve' pk=comment.pk %}">
                 コメント投稿する
@@ -77,25 +51,12 @@
             <a class="btn btn-outline-primary" href="{% url 'blog:comment_remove' pk=comment.pk %}">
                 コメント削除する
             </a>
+            {% endif %}
         </div>
-        {% endif %}
-        <br>
-        {% empty %}
-        <p>まだコメントはありません</p>
-        {% endfor %}
     </div>
-</div>
-</div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script>
-    const elements = document.getElementsByClassName('markdownx');
-    for (element of elements) {
-        element.addEventListener('markdownx.update', event => {
-            for (const block of document.querySelectorAll('pre code')) {
-                hljs.highlightBlock(block);
-            }
-        });
-    }
-</script>
+    {% empty %}
+    <p>まだコメントはありません</p>
+    {% endfor %}
+</section>
+{% include 'includes/code-highlight.html' %}
 {% endblock %}
