@@ -1,64 +1,67 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load markdown %}
-{% block content %}
 
 {% block link %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/blog/post.css' %}" />
 {% endblock%}
-<article class="container">
-    <header>
-        <h1>{{ post.title }}</h1>
-        <div class="date">
-            <p>
-                Published:{{ post.created_date.date }} Edited:{{ post.published_date.date }}
-                [<a href="#">{{post.category}}</a>]
-            </p>
-        </div>
-        {% if user.is_authenticated and request.user == post.author %}
-        <a class="btn btn-outline-primary" href="{% url 'blog:post_edit' post.pk %}">
-            <span class="glyphcon glyphcon-pencil">編集</span>
-        </a>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
-            削除
-        </button>
-        {% include 'includes/post-delete-modal.html' %}
-        {% endif %}
-        {% if post.post_img %}
-        <img src=" {{ post.post_img.url }}" alt="post-image" class="post-image">
-        {% endif %}
-    </header>
-    <section>
-        {{ post.text | safe | markdown_to_html}}
-    </section>
-    <footer>
-        <p>Text {{ post.author.display_name }}@{{ post.author.username }}</p>
-    </footer>
-</article>
-<section id="comment" class="container">
-    {% if user.is_authenticated %}
-    <a class="btn btn-outline-primary" href="{% url 'blog:add_comment_to_post' pk=post.pk %}">コメントする</a>
-    {% endif %}
-    {% for comment in post.comments.all %}
-    <div class="card">
-        <div class="content">
-            <p> 投稿者:{{ comment.author.display_name }}@{{ comment.author.username }}
-                <br>{{ comment.create_date }}</br></p>
-            <p>{{ comment.text|safe|linebreaksbr }}</p>
-            {% if not comment.approved_comment %}
-            <a class="btn btn-outline-primary" href="{% url 'blog:comment_approve' pk=comment.pk %}">
-                コメント投稿する
-            </a>
-            <a class="btn btn-outline-primary" href="{% url 'blog:comment_remove' pk=comment.pk %}">
-                コメント削除する
-            </a>
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <article>
+            <header>
+                <h1>{{ post.title }}</h1>
+                <div class="date">
+                    <p>
+                        Published:{{ post.created_date.date }} Edited:{{ post.published_date.date }}
+                        [<a href="#">{{post.category}}</a>]
+                    </p>
+                </div>
+                {% if user.is_authenticated and request.user == post.author %}
+                <div class="btn-wrapper1">
+                    <a class="btn btn-outline-primary" href="{% url 'blog:post_edit' post.pk %}">編集</a>
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+                        削除
+                    </button>
+                </div>
+                {% include 'includes/post-delete-modal.html' %}
+                {% endif %}
+            </header>
+            <section>
+                {{ post.text | safe | markdown_to_html}}
+            </section>
+            <footer class="text-author">
+                <p>Text {{ post.author.display_name }}@{{ post.author.username }}</p>
+            </footer>
+        </article>
+        <section class="comment">
+            {% for comment in post.comments.all %}
+            <div class="card">
+                <div class="content">
+                    <p> 投稿者:{{ comment.author.display_name }}@{{ comment.author.username }}
+                        <br>{{ comment.create_date }}</br></p>
+                    <p>{{ comment.text|safe|linebreaksbr }}</p>
+                    {% if not comment.approved_comment %}
+                    <a class="btn btn-outline-primary" href="{% url 'blog:comment_approve' pk=comment.pk %}">
+                        コメント投稿する
+                    </a>
+                    <a class="btn btn-outline-primary" href="{% url 'blog:comment_remove' pk=comment.pk %}">
+                        コメント削除する
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p>まだコメントはありません</p>
+            {% endfor %}
+            {% if user.is_authenticated %}
+            <div class="btn-wrapper">
+                <a class="btn btn-outline-primary" href="{% url 'blog:add_comment_to_post' pk=post.pk %}">コメントする</a>
+            </div>
             {% endif %}
-        </div>
+        </section>
     </div>
-    {% empty %}
-    <p>まだコメントはありません</p>
-    {% endfor %}
-</section>
+</div>
 {% include 'includes/code-highlight.html' %}
 {% endblock %}

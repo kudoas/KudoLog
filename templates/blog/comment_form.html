@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog/post.css' %}" />
+{% endblock%}
+
 {% block content %}
 <div class="container">
     <h1>コメントの作成</h1>
     <form method="POST" class="post-form">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit" class="btn btn-outline-primary">下書きを作成する</button>
+        <div class="btn-wrapper">
+            <button type="submit" class="btn btn-outline-primary">作成</button>
+        </div>
     </form>
 </div>
-<br>
 {% endblock %}

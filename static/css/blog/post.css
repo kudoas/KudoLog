@@ -1,10 +1,24 @@
+.content {
+  background-color: #f7f7f7;
+}
+
+.container {
+  background-color: white;
+}
+
 h1 {
-  margin: 22px 0;
+  padding: 20px;
   text-align: center;
 }
 
 .date {
   text-align: right;
+  color: #969090;
+}
+
+.btn-wrapper1 {
+  text-align: right;
+  margin: 10px;
 }
 
 .post-image {
@@ -17,7 +31,7 @@ h2,
 h3 {
   padding: 0.25em 0.5em;
   border-left: solid 5px;
-  border-color: rgb(29, 245, 21);
+  border-color: rgba(155, 155, 155, 0.5);
 }
 
 article section img {
@@ -25,7 +39,7 @@ article section img {
   height: auto;
   display: block;
   margin: auto;
-  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.8);
 }
 
 .markdownx-preview img {
@@ -51,9 +65,10 @@ blockquote {
   margin-inline-end: 40px;
 }
 
-footer {
+.text-author {
   text-align: center;
   color: #464646;
+  margin: 40px 0px;
 }
 
 .comment {
@@ -64,4 +79,9 @@ footer {
 
 .content {
   padding: 15px;
+}
+
+.btn-wrapper {
+  text-align: center;
+  margin: 10px;
 }
