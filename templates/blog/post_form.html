@@ -14,7 +14,9 @@
         {% csrf_token %}
         {{ post_form.as_p }}
         {{ post_form.media }}
-        <button type="submit" class="save btn btn-outline-primary">保存</button>
+        <div class="btn-wrapper">
+            <button type="submit" class="save btn btn-outline-primary">保存</button>
+        </div>
     </form>
 </div>
 {% include 'includes/code-highlight.html' %}
