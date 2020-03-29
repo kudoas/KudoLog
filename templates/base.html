@@ -11,7 +11,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/0686cad4ec.js"></script>
     <!-- highlight.js -->
@@ -19,18 +18,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- static files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nomalize.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/blog/index.css' %}" />
     {% block link %} {% endblock %}
+    <link rel="icon" type="image/png" href="{% static 'image/contagious-illness.png' %}">
     <title>KudoLog</title>
 </head>
 
 <body>
-    <header>
+    <header class="header">
         {% include 'includes/navigation.html' %}
     </header>
-    <main>
+    <main class="main">
         {% block content %} {% endblock %}
     </main>
-    <footer>
+    <footer class="footer">
         {% include 'includes/footer.html' %}
     </footer>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"

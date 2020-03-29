@@ -1,61 +1,68 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load markdown %}
-
-{% block link %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/blog/blog.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-{% endblock %}
 
 {% block content %}
-<div class="jumbotron">
-    <div class="jumbo-tex" style="color:white; text-align: center;">
-        <h1><span style="font-family: 'Dancing Script', cursive;">KudoLog</span></h1>
-        <p><span style="font-family: 'Dancing Script', cursive;">You can write text for free!!!</span></p>
-    </div>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-primary" role="alert">記事一覧</div>
-        </div>
-    </div>
-    <article style="margin: 5px 0px;">
-        <div class="row">
-            {% for post in post_list %}
-            <div class="col-md-4">
-                <div class="card" style="margin: 5px 0px;">
-                    {% if post.post_img %}
-                    <img class="post-img" src=" {{ post.post_img.url }}" alt="">
-                    {% else %}
-                    <img class="post-img" src="{% static 'image/voyage.jpg' %}" alt="">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title text-center">
-                            <a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a>
-                        </h5>
-                        <p class="card-text text-right">
-                            <span class="badge badge-secondary">
-                                {{ post.category }}
-                            </span>
-                            コメント数:{{ post.approve_comments.count }}<br>筆者:
-                            {% if post.author.icon %}
-                            <img src="{{ post.author.icon.url }}" alt='' class="img-thumbnail" width="20" height="20" />
-                            {% else %}
-                            <i class="fas fa-user-circle"></i>
-                            {% endif %}
-                            {{ post.author.display_name }}@{{ post.author.username }}</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">発行日: {{ post.created_date }}</small><br>
-                        <small class="text-muted">更新日: {{ post.published_date }}</small>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </article>
-    {% include 'includes/page.html' %}
-</div>
+<article class="articles">
+    {% for post in post_list %}
+    <section class="item">
+        <a href="{% url 'blog:post_detail' pk=post.pk %}">
+            {% include 'includes/post-image.html' %}
+            <div class="category">{{ post.category }}</div>
+            <p class='post-title'>{{ post.title }}</p>
+            <p class="description">
+                {{ post.summary }}
+            </p>
+            <p class="comment">コメント数:{{ post.approve_comments.count }}</p>
+            <p class="date">{{ post.created_date }}</p>
+        </a>
+    </section>
+    {% endfor %}
+</article>
+{% include 'includes/page.html' %}
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+<script>
+    new Masonry('article', {
+        itemSelector: '.item',
+        columnWidth: 300,
+        gutter: 4,
+        isFitWidth: true
+    })
+</script>
 {% endblock %}
+<!-- <div class="container">
+            <article style="margin: 5px 0px;">
+                <div class="row">
+                    {% for post in post_list %}
+                    <div class="col-md-4">
+                        <div class="card" style="margin: 5px 0px;">
+                            {% if post.post_img %}
+                            <img class="post-img" src=" {{ post.post_img.url }}" alt="">
+                            {% else %}
+                            <img class="post-img" src="{% static 'image/voyage.jpg' %}" alt="">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title text-center">
+                                    <a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a>
+                                </h5>
+                                <p class="card-text text-right">
+                                    <span class="badge badge-secondary">
+                                        {{ post.category }}
+                                    </span>
+                                    コメント数:{{ post.approve_comments.count }}<br>筆者:
+                                    {% if post.author.icon %}
+                                    <img src="{{ post.author.icon.url }}" alt='' class="img-thumbnail" width="20" height="20" />
+                                    {% else %}
+                                    <i class="fas fa-user-circle"></i>
+                                    {% endif %}
+                                    {{ post.author.display_name }}@{{ post.author.username }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">発行日: {{ post.created_date }}</small><br>
+                                <small class="text-muted">更新日: {{ post.published_date }}</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+        </div> -->

@@ -27,7 +27,7 @@ class AboutView(TemplateView):
 class PostListView(ListView):
     model = Post
     template_name = 'blog/post_list.html'
-    paginate_by = 6
+    paginate_by = 12
 
     def get_context_data(self):
         context = super().get_context_data()
@@ -51,7 +51,6 @@ class PostListView(ListView):
             category = category_form.cleaned_data['category']
             if category:
                 queryset = queryset.filter(category=category)
-
         return queryset
 
 

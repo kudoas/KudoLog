@@ -1,0 +1,19 @@
+.profile h1 {
+  padding: 30px;
+  text-align: center;
+}
+.profile-thumbnail {
+  width: 40%;
+  border-radius: 20px;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+  box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.8);
+}
+a:link,
+a:visited {
+  color: rgb(39, 128, 39);
+}
+.post-content {
+  margin: 10px 10px;
+}

@@ -1,0 +1,23 @@
+{% load static %}
+
+{% if post.category ==  'general'%}
+<img class="post-img" src="{% static 'image/post-images/general.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'world' %}
+<img class="post-img" src="{% static 'image/post-images/world.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'political economy' %}
+<img class="post-img" src="{% static 'image/post-images/economy.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'liviing' %}
+<img class="post-img" src="{% static 'image/post-images/living.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'study' %}
+<img class="post-img" src="{% static 'image/post-images/study.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'technology' %}
+<img class="post-img" src="{% static 'image/post-images/technology.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'interesting' %}
+<img class="post-img" src="{% static 'image/post-images/interesting.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'entertainment' %}
+<img class="post-img" src="{% static 'image/post-images/entertainment.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'anime&games' %}
+<img class="post-img" src="{% static 'image/post-images/games.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% elif post.category == 'home appliance' %}
+<img class="post-img" src="{% static 'image/post-images/home-appliance.jpg' %}" alt="{% static 'image/voyage.jpg' %}">
+{% endif %}

@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog/index.css' %}" />
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <h1 style="text-align: center"><span style="font-family: 'Dancing Script', cursive;">KudoLog</span></h1>
