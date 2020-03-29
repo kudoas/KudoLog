@@ -22,7 +22,7 @@ CATEGORY_CHOICES = (
     ('general', '一般'),
     ('world', '世の中'),
     ('political economy', '政治と経済'),
-    ('liviing', '暮らし'),
+    ('living', '暮らし'),
     ('study', '学び'),
     ('technology', 'テクノロジー'),
     ('interesting', 'おもしろ'),
@@ -53,19 +53,7 @@ class CategorySearchForm(forms.Form):
     category = forms.ChoiceField(
         widget=forms.Select,
         choices=CATEGORY_CHOICES,
-        required=True,
-    )
-    CATEGORY_CHOICES = (
-        ('general', '一般'),
-        ('world', '世の中'),
-        ('political economy', '政治と経済'),
-        ('liviing', '暮らし'),
-        ('study', '学び'),
-        ('technology', 'テクノロジー'),
-        ('interesting', 'おもしろ'),
-        ('entertainment', 'エンタメ'),
-        ('anime&games', 'アニメとゲーム'),
-        ('home appliance', '家電'),
+        required=False,
     )
 
 

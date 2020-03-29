@@ -1,11 +1,10 @@
-<div class="bg-light d-flex justify-content-center align-items-center flex-column" style="height:100px;">
-    <div>
-        <!-- <a href="{% url 'blog:introduction' %}">AboutMe</a> -->
-        <a href="{% url 'blog:policy' %}">規約</a>
-    </div>
-    <div>
-        <small>Copyright 2019@Daichi Kudo</small>
-        <a href="https://github.com/Kudoas/KudoLog"><i class="fab fa-github"></i></a>
-        <a href="https://twitter.com/kudoadd"><i class="fab fa-twitter"></i></a>
-    </div>
-</div>
+<ul class="horizontal-list">
+    <li class="horizontal-item">
+        <a href="https://github.com/Kudoas/KudoLog">GitHub <i class="fab fa-github"></i></a>
+    </li>
+    <li class="horizontal-item">
+        <a href="https://twitter.com/kudoadd">Twitter <i class="fab fa-twitter"></i></a>
+    </li>
+    <li class="horizontal-item"><a href="{% url 'blog:policy' %}">Policy <i class="far fa-flag"></i></a></li>
+    <p class="copyright">Copyright © 2020 KudoLog</p>
+</ul>

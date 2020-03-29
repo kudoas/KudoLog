@@ -41,6 +41,9 @@ class Post(models.Model):
     def late_five_post(self):
         return self.post_set.order_by('published_date').reverse[:4]
 
+    def summary(self):
+        return self.text[:50]
+
     def __str__(self):
         return self.title
 

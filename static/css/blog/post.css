@@ -1,39 +1,28 @@
-.content {
-  background-color: #f7f7f7;
-}
-
-.container {
-  background-color: white;
-}
-
 h1 {
-  padding: 20px;
+  padding: 30px;
   text-align: center;
 }
-
 .date {
   text-align: right;
   color: #969090;
 }
-
 .btn-wrapper1 {
   text-align: right;
   margin: 10px;
 }
-
-.post-image {
-  width: 100%;
-  position: relative;
-  display: inline-block;
+.post-image-wrapper {
+  text-align: center;
 }
-
+.post-image {
+  width: 60%;
+  border: solid 10px #f0f0f0;
+}
 h2,
 h3 {
   padding: 0.25em 0.5em;
   border-left: solid 5px;
   border-color: rgba(155, 155, 155, 0.5);
 }
-
 article section img {
   width: 60%;
   height: auto;
@@ -41,7 +30,6 @@ article section img {
   margin: auto;
   box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.8);
 }
-
 .markdownx-preview img {
   width: 60%;
   height: auto;
@@ -49,7 +37,6 @@ article section img {
   margin: auto;
   box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.8);
 }
-
 blockquote {
   box-sizing: border-box;
   position: relative;
@@ -64,23 +51,19 @@ blockquote {
   margin-inline-start: 40px;
   margin-inline-end: 40px;
 }
-
 .text-author {
   text-align: center;
   color: #464646;
   margin: 40px 0px;
 }
-
 .comment {
   width: 100%;
   padding: 15px;
   margin: auto;
 }
-
 .content {
   padding: 15px;
 }
-
 .btn-wrapper {
   text-align: center;
   margin: 10px;

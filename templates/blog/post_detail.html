@@ -18,6 +18,11 @@
                         [<a href="#">{{post.category}}</a>]
                     </p>
                 </div>
+                {% if post.post_img %}
+                <div class="post-image-wrapper">
+                    <img src=" {{ post.post_img.url }}" alt="post-image" class="post-image">
+                </div>
+                {% endif %}
                 {% if user.is_authenticated and request.user == post.author %}
                 <div class="btn-wrapper1">
                     <a class="btn btn-outline-primary" href="{% url 'blog:post_edit' post.pk %}">編集</a>
@@ -29,7 +34,7 @@
                 {% endif %}
             </header>
             <section>
-                {{ post.text | safe | markdown_to_html}}
+                {{ post.text | safe | markdown_to_html }}
             </section>
             <footer class="text-author">
                 <p>Text {{ post.author.display_name }}@{{ post.author.username }}</p>
