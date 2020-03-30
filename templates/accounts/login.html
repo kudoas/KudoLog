@@ -34,8 +34,16 @@
                 <a class="btn btn-outline-success" href="{% url 'accounts:signup' %}">登録へ</a>
             </li>
         </ul>
-    </div>
+        <ul class="list-group list-group-flush">
+            <li class="text-right list-group-item">TEST用アカウントはこちら
+                <button class="btn btn-outline-success" onclick="msgdsp()">ユーザー名とパスワードの表示</button>
+            </li>
+        </ul>
     </div>
 </form>
-<br>
+<script language="JavaScript">
+    function msgdsp() {
+        alert("ユーザー名：testuser, パスワード：testpass1234");
+    }
+</script>
 {% endblock %}
