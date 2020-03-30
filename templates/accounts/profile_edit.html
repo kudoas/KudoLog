@@ -90,8 +90,8 @@
             {% if user.is_authenticated and request.user == post.author %}
             <a class="btn btn-outline-dark" href="{% url 'blog:post_edit' post.pk %}">編集</a>
             {% endif %}
-            {% endfor %}
         </section>
+        {% endfor %}
     </article>
 </div>
 {% include 'includes/profile-edit-modal.html' %}
