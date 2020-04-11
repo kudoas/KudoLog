@@ -6,9 +6,15 @@ h1 {
   text-align: right;
   color: #969090;
 }
+.btn-wrapper {
+  text-align: center;
+  margin: 10px;
+  border: 10px dashed rgba(0, 0, 0, 0);
+}
 .btn-wrapper1 {
   text-align: right;
   margin: 10px;
+  border: 10px dashed rgba(0, 0, 0, 0);
 }
 .post-image-wrapper {
   text-align: center;
@@ -63,8 +69,4 @@ blockquote {
 }
 .content {
   padding: 15px;
-}
-.btn-wrapper {
-  text-align: center;
-  margin: 10px;
 }

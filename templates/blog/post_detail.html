@@ -26,7 +26,7 @@
                 {% if user.is_authenticated and request.user == post.author %}
                 <div class="btn-wrapper1">
                     <a class="btn btn-outline-primary" href="{% url 'blog:post_edit' post.pk %}">編集</a>
-                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">
+                    <button type="button" class="btn danger" data-toggle="modal" data-target="#deleteModal">
                         削除
                     </button>
                 </div>
@@ -37,7 +37,9 @@
                 {{ post.text | safe | markdown_to_html }}
             </section>
             <footer class="text-author">
-                <p>Text {{ post.author.display_name }}@{{ post.author.username }}</p>
+                <a href="{% url 'accounts:detail_profile' post.id %}">
+                    <p>Text {{ post.author.display_name }}@{{ post.author.username }}</p>
+                </a>
             </footer>
         </article>
         <section class="comment">
@@ -51,7 +53,7 @@
                     <a class="btn btn-outline-primary" href="{% url 'blog:comment_approve' pk=comment.pk %}">
                         コメント投稿する
                     </a>
-                    <a class="btn btn-outline-primary" href="{% url 'blog:comment_remove' pk=comment.pk %}">
+                    <a class="btn danger" href="{% url 'blog:comment_remove' pk=comment.pk %}">
                         コメント削除する
                     </a>
                     {% endif %}
@@ -62,7 +64,7 @@
             {% endfor %}
             {% if user.is_authenticated %}
             <div class="btn-wrapper">
-                <a class="btn btn-outline-primary" href="{% url 'blog:add_comment_to_post' pk=post.pk %}">コメントする</a>
+                <a class="btn" href="{% url 'blog:add_comment_to_post' pk=post.pk %}">コメントする</a>
             </div>
             {% endif %}
         </section>
