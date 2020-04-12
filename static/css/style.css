@@ -20,6 +20,12 @@ a:active {
   color: #00695c;
   text-decoration: none;
 }
+ul {
+  list-style: none;
+}
+.ul-list {
+  text-align: right;
+}
 .form-control {
   font-size: 1.6rem;
 }

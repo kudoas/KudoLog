@@ -25,18 +25,22 @@
         {{ field.errors }}
         <hr>
         {% endfor %}
-        <button type="submit" class="btn">ログイン</button>
+        <div class="btn-wrapper">
+            <button type="submit" class="btn">ログイン</button>
+        </div>
         <input type="hidden" name="next" value="{{ next }}" />
         {% csrf_token %}
     </form>
-    <ul class="ul-list">
-        <li>はじめてのご利用ですか？
-            <a class="btn" href="{% url 'accounts:signup' %}">登録へ</a>
-        </li>
-        <li>TEST用アカウントはこちら
-            <button class="btn" onclick="msgdsp()">ユーザー名とパスワードの表示</button>
-        </li>
-    </ul>
+    <div class="btn-wrapper">
+        <ul class="ul-list">
+            <li>はじめてのご利用ですか？
+                <a class="btn" href="{% url 'accounts:signup' %}">登録へ</a>
+            </li>
+            <li>TEST用アカウントはこちら
+                <button class="btn" onclick="msgdsp()">ユーザー名とパスワードの表示</button>
+            </li>
+        </ul>
+    </div>
 </div>
 <script language="JavaScript">
     function msgdsp() {
