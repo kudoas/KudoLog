@@ -2,8 +2,6 @@
 {% load static %}
 
 {% block link %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'css/blog/index.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'css/blog/post.css' %}" />
 {% endblock %}
 
@@ -15,7 +13,7 @@
         {{ post_form.as_p }}
         {{ post_form.media }}
         <div class="btn-wrapper">
-            <button type="submit" class="save btn btn-outline-primary">保存</button>
+            <button type="submit" class="btn">保存</button>
         </div>
     </form>
 </div>

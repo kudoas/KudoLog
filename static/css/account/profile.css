@@ -2,6 +2,9 @@
   padding: 30px;
   text-align: center;
 }
+.image-wrapper {
+  text-align: center;
+}
 .profile-thumbnail {
   width: 40%;
   border-radius: 20px;
@@ -9,6 +12,12 @@
   display: block;
   margin: 10px auto;
   box-shadow: 0px 0px 10px -7px rgba(0, 0, 0, 0.8);
+}
+.profile-icon {
+  width: 40%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
 }
 a:link,
 a:visited {

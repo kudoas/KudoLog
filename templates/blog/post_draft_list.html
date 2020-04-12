@@ -1,28 +1,42 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load markdown %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/blog/post.css' %}" />
+{% endblock%}
+
 {% block content %}
-<br>
 <div class="container">
-    <h1 style="text-align: center; padding: 10px;">下書き一覧</h1>
-    <div class="col-sm-12">
-        {% for post in post_list %}
-        <div class="card">
-            <div class="card-header alert-primary">
-                <h2><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+    <h1>下書き一覧</h1>
+    {% for post in post_list %}
+    <hr class="hr">
+    <article>
+        <header>
+            <h1><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <div class="date">
+                <p>
+                    Published:{{ post.created_date.date }} Edited:{{ post.published_date.date }}
+                    [<a href="#">{{post.category}}</a>]
+                </p>
             </div>
-            <div class="card-body">
-                <p>{{ post.text | markdown_to_html | linebreaksbr }}</p>
-            </div>
-            <div class="card-footer">
-                <p>筆者:{{ post.author.display_name }}@{{ post.author.username }}
-                    <br>発行日: {{ post.created_date }}</p>
-                <p><a class="btn btn-outline-primary" href="{% url 'blog:post_publish' pk=post.pk %}">投稿する</a></p>
-            </div>
+        </header>
+        <section>
+            <p>{{ post.text | markdown_to_html | linebreaksbr }}</p>
+        </section>
+        <footer>
+            <footer class="text-author">
+                <a href="{% url 'accounts:detail_profile' post.id %}">
+                    <p>Text {{ post.author.display_name }}@{{ post.author.username }}</p>
+                </a>
+            </footer>
+        </footer>
+        <div class="btn-wrapper">
+            <a class="btn" href="{% url 'blog:post_publish' pk=post.pk %}">投稿する</a>
         </div>
-        <br>
         {% empty %}
         <p>下書きはありません</p>
-        {% endfor %}
-    </div>
+    </article>
+    {% endfor %}
 </div>
 {% endblock %}

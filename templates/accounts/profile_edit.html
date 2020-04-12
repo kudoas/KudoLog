@@ -12,11 +12,10 @@
     <section class="profile">
         <h1>プロフィール</h1>
         {% if user.icon %}
-        <img src="{{ user.icon.url }}" alt="icon" class="profile-thumbnail" style="text-align:center;"
-            data-toggle="modal" data-target="#iconModal" />
+        <img src="{{ user.icon.url }}" alt="icon" class="profile-thumbnail" data-toggle="modal"
+            data-target="#iconModal" />
         {% else %}
-        <i class="fas fa-user-circle fa-10x rounded-circle" style="max-width: 100%; height: auto; text-align:center;" data-toggle="modal"
-            data-target="#iconModal"></i>
+        <i class="fas fa-user-circle fa-10x rounded-circle" data-toggle="modal" data-target="#iconModal"></i>
         {% endif %}
         </button>
         <table class="table">
@@ -25,8 +24,7 @@
                     <th scope="row">ユーザー名</th>
                     <td>{{ user.display_name }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#displayNameModal">
+                        <button type="button" class="btn" data-toggle="modal" data-target="#displayNameModal">
                             編集
                         </button>
                     </td>
@@ -40,7 +38,7 @@
                     <th scope="row">性別</th>
                     <td>{{ user.gender }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profileModal">
+                        <button type="button" class="btn" data-toggle="modal" data-target="#profileModal">
                             編集
                         </button>
                     </td>
@@ -79,16 +77,25 @@
     </section>
     <article>
         {% for post in late_posts %}
+        <hr class="hr">
         <section class="post-content">
             <h1>{{ post.title }}</h1>
+            <div class="date">
+                <p>
+                    Published:{{ post.created_date.date }} Edited:{{ post.published_date.date }}
+                    [<a href="#">{{post.category}}</a>]
+                </p>
+            </div>
             <p class="postcontent">{{ post.text | safe | markdown_to_html }}</p>
-            <p><a href="{% url 'accounts:detail_profile' post.id %}">
-                    筆者:{{ post.author.display_name }}@{{ post.author.username }}
+            <footer class="text-author">
+                <a href="{% url 'accounts:detail_profile' post.id %}">
+                    Text {{ post.author.display_name }}@{{ post.author.username }}
                 </a>
-            </p>
-            <p>Created: {{ post.created_date.date }}<br>Edited: {{ post.published_date.date }}</p>
+            </footer>
             {% if user.is_authenticated and request.user == post.author %}
-            <a class="btn btn-outline-dark" href="{% url 'blog:post_edit' post.pk %}">編集</a>
+            <div class="btn-wrapper">
+                <a class="btn" href="{% url 'blog:post_edit' post.pk %}">編集</a>
+            </div>
             {% endif %}
         </section>
         {% endfor %}
