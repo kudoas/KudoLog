@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
@@ -47,20 +46,6 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    username = models.CharField(
-        _('username'),
-        max_length=150,
-        unique=True,
-        help_text=_(
-            'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
-        validators=[UnicodeUsernameValidator()],
-        error_messages={
-            'unique': _("A user with that username already exists."),
-        },
-    )
-    display_name = models.CharField(_('name'), max_length=30)
-    email = models.EmailField(_('email address'), unique=True)
-
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -76,9 +61,21 @@ class User(AbstractBaseUser, PermissionsMixin):
             'Unselect this instead of deleting accounts.'
         ),
     )
+    username = models.CharField(
+        _('username'),
+        max_length=150,
+        unique=True,
+        help_text=_(
+            'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
+        validators=[UnicodeUsernameValidator()],
+        error_messages={
+            'unique': _("A user with that username already exists."),
+        },
+    )
+    display_name = models.CharField(_('name'), max_length=30)
+    email = models.EmailField(_('email address'), unique=True)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     icon = models.ImageField(upload_to='account', blank=True)
-
     GENDER_CHOICES = (
         ('女性', '女性',),
         ('男性', '男性',),
@@ -107,7 +104,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     birth_year = models.CharField(
         max_length=20, blank=True, choices=BIRTH_YEAR_CHOICES
     )
-
     months = []
     BIRTH_MONTH_CHOICES = make_select_object(1, 13, months)
     for i in range(len(BIRTH_MONTH_CHOICES)):
@@ -115,7 +111,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     birth_month = models.CharField(
         max_length=20, blank=True, choices=BIRTH_MONTH_CHOICES
     )
-
     LOCATION_CHOICES = (
         ('北海道', '北海道',),
         ('東北', '東北',),
@@ -130,9 +125,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=50, blank=True, choices=LOCATION_CHOICES
     )
     favorite_word = models.CharField(max_length=50, blank=True)
-
     objects = UserManager()
-
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

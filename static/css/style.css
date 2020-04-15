@@ -54,6 +54,10 @@ ul {
   background: red;
   color: white;
 }
+.btn.dismissed {
+  color: rgba(196, 196, 196, 0.7);
+  border-color: rgba(196, 196, 196, 0.7);
+}
 .pagination {
   color: #00695c;
 }

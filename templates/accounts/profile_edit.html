@@ -15,7 +15,9 @@
         <img src="{{ user.icon.url }}" alt="icon" class="profile-thumbnail" data-toggle="modal"
             data-target="#iconModal" />
         {% else %}
-        <i class="fas fa-user-circle fa-10x rounded-circle" data-toggle="modal" data-target="#iconModal"></i>
+        <div class="center-wrapper">
+            <i class="fas fa-user-circle fa-10x rounded-circle" data-toggle="modal" data-target="#iconModal"></i>
+        </div>
         {% endif %}
         </button>
         <table class="table">

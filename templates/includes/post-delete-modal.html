@@ -13,9 +13,9 @@
                 本当に削除しますか？
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn dismissed" data-dismiss="modal">キャンセル</button>
                 <form method="post" action="{% url 'blog:post_remove' pk=post.pk %}">{% csrf_token %}
-                    <button class="btn btn-danger" type="submit">削除</button>
+                    <button class="btn danger" type="submit">削除</button>
                 </form>
             </div>
         </div>
