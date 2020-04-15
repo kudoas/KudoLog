@@ -10,7 +10,7 @@ from accounts.models import User
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_img = models.ImageField(upload_to='post', blank=True, null=True)
+    post_img = models.ImageField(upload_to='post', blank=True)
     title = models.CharField(max_length=200)
     CATEGORY_CHOICES = (
         ('general', '一般'),

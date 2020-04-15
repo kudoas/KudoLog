@@ -27,7 +27,6 @@ class RenameForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
-            field.widget.attrs['placeholder'] = 'Please Enter Your Nickname'
 
 
 class IconForm(forms.ModelForm):
@@ -42,13 +41,20 @@ class IconForm(forms.ModelForm):
 
 
 class ProfileCreateForm(forms.ModelForm):
+
     class Meta():
         model = User
-        fields = ('gender', 'birth_year',
-                  'birth_month', 'location', 'favorite_word')
+        fields = (
+            'gender',
+            'birth_year',
+            'birth_month',
+            'location',
+            'favorite_word'
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['gender'].initial = '男性'
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
 

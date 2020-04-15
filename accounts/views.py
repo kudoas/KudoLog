@@ -74,16 +74,22 @@ def edit_profile(request, user_id):
     late_posts = user.post_set.order_by('-created_date').reverse()[:3]
     num_posts = user.post_set.order_by('-created_date').count
     profile_form = ProfileCreateForm(
-        request.POST, request.FILES or None, instance=user
+        request.POST, request.FILES or None, instance=user, initial={'location': request.user.location}
     )
+    # print(profile_form)
     rename_form = RenameForm(request.POST or None, instance=user)
     icon_form = IconForm(request.POST, request.FILES or None, instance=user)
 
     if request.method == 'GET' and request.user.is_authenticated and request.user.id == user_id:
+        print(1)
         rename_form.fields['display_name'].widget.attrs['value'] = request.user.display_name
         profile_form.fields['favorite_word'].widget.attrs['value'] = request.user.favorite_word
-        context = {'user': user, 'rename_form': rename_form,
-                   'profile_form': profile_form}
+        # profile_form.fields['initial'] = {'location': request.user.location}
+        context = {
+            'user': user,
+            'rename_form': rename_form,
+            'profile_form': profile_form
+        }
 
     if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and rename_form.is_valid():
         user.display_name = rename_form.cleaned_data['display_name']
@@ -103,8 +109,13 @@ def edit_profile(request, user_id):
         user.favorite_word = profile_form.cleaned_data['favorite_word']
         user.save()
         return redirect('accounts:edit_profile', user_id=user_id)
-    context = {'profile_form': profile_form, 'rename_form': rename_form, 'icon_form': icon_form,
-               'num_posts': num_posts, 'late_posts': late_posts}
+    context = {
+        'profile_form': profile_form,
+        'rename_form': rename_form,
+        'icon_form': icon_form,
+        'num_posts': num_posts,
+        'late_posts': late_posts
+    }
     return render(request, 'accounts/profile_edit.html', context)
 
 
@@ -113,4 +124,10 @@ def detail_profile(request, post_id):
     user = post.author
     late_posts = user.post_set.order_by('-created_date').reverse()[:3]
     num_posts = user.post_set.all().count
-    return render(request, 'accounts/profile_detail.html', {'post': post, 'user': user, 'late_posts': late_posts, 'num_posts': num_posts})
+    context = {
+        'post': post,
+        'user': user,
+        'late_posts': late_posts,
+        'num_posts': num_posts
+    }
+    return render(request, 'accounts/profile_detail.html', context)
