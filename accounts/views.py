@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
@@ -40,12 +41,13 @@ class SignupDoneView(TemplateView):
     template_name = 'accounts/signup_done.html'
 
 
+@login_required
 def edit_profile(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     late_posts = user.post_set.order_by('-created_date').reverse()[:3]
     num_posts = user.post_set.order_by('-created_date').count
     profile_form = ProfileCreateForm(
-        request.POST, request.FILES or None, instance=user, initial={'location': request.user.location}
+        request.POST, request.FILES or None, instance=user
     )
     rename_form = RenameForm(request.POST or None, instance=user)
     icon_form = IconForm(request.POST, request.FILES or None, instance=user)
@@ -59,16 +61,19 @@ def edit_profile(request, user_id):
             'profile_form': profile_form
         }
 
+    # rename_formn
     if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and rename_form.is_valid():
         user.display_name = rename_form.cleaned_data['display_name']
         user.save()
         return redirect('accounts:edit_profile', user_id=user_id)
 
+    # icon_form
     if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and icon_form.is_valid():
         user.icon = icon_form.cleaned_data['icon']
         user.save()
         return redirect('accounts:edit_profile', user_id=user_id)
 
+    # profile_form
     if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and profile_form.is_valid():
         user.gender = profile_form.cleaned_data['gender']
         user.birth_year = profile_form.cleaned_data['birth_year']

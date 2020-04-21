@@ -4,7 +4,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.decorators.http import require_POST
 from django.views.generic import DetailView, ListView, TemplateView
 
 from accounts.models import User
@@ -59,6 +58,17 @@ class PostDetailView(DetailView):
     template_name = 'blog/post_detail.html'
 
 
+class DraftListView(LoginRequiredMixin, ListView):
+    model = Post
+    login_url = '/login/'
+    redirect_field_name = 'blog/post_list.html'
+    template_name = 'blog/post_draft_list.html'
+
+    def get_queryset(self):
+        return Post.objects.filter(published_date__isnull=True, author=self.request.user).order_by('-created_date')
+
+
+@login_required
 def create_post(request):
     form = PostForm(request.POST, request.FILES or None)
     if request.method == 'POST' and form.is_valid():
@@ -81,6 +91,7 @@ def create_post(request):
     return render(request, 'blog/post_form.html', {'post_form': form})
 
 
+@login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post_form = PostModelForm(request.POST or None, instance=post)
@@ -93,21 +104,12 @@ def post_edit(request, pk):
     return render(request, 'blog/post_edit.html', context)
 
 
-@require_POST
+@login_required
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    post.delete()
+    if request.method == 'POST':
+        post.delete()
     return redirect('blog:post_list')
-
-
-class DraftListView(LoginRequiredMixin, ListView):
-    model = Post
-    login_url = '/login/'
-    redirect_field_name = 'blog/post_list.html'
-    template_name = 'blog/post_draft_list.html'
-
-    def get_queryset(self):
-        return Post.objects.filter(published_date__isnull=True, author=self.request.user).order_by('-created_date')
 
 
 @login_required
