@@ -52,7 +52,7 @@ def edit_profile(request, user_id):
     rename_form = RenameForm(request.POST or None, instance=user)
     icon_form = IconForm(request.POST, request.FILES or None, instance=user)
 
-    if request.method == 'GET' and request.user.is_authenticated and request.user.id == user_id:
+    if request.method == 'GET' and request.user.id == user_id:
         rename_form.fields['display_name'].widget.attrs['value'] = request.user.display_name
         profile_form.fields['favorite_word'].widget.attrs['value'] = request.user.favorite_word
         context = {
@@ -62,19 +62,19 @@ def edit_profile(request, user_id):
         }
 
     # rename_formn
-    if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and rename_form.is_valid():
+    if request.method == "POST" and request.user.id == user_id and rename_form.is_valid():
         user.display_name = rename_form.cleaned_data['display_name']
         user.save()
         return redirect('accounts:edit_profile', user_id=user_id)
 
     # icon_form
-    if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and icon_form.is_valid():
+    if request.method == "POST" and request.user.id == user_id and icon_form.is_valid():
         user.icon = icon_form.cleaned_data['icon']
         user.save()
         return redirect('accounts:edit_profile', user_id=user_id)
 
     # profile_form
-    if request.method == "POST" and request.user.is_authenticated and request.user.id == user_id and profile_form.is_valid():
+    if request.method == "POST" and request.user.id == user_id and profile_form.is_valid():
         user.gender = profile_form.cleaned_data['gender']
         user.birth_year = profile_form.cleaned_data['birth_year']
         user.birth_month = profile_form.cleaned_data['birth_month']
