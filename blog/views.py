@@ -77,8 +77,7 @@ def create_post(request):
         post.title = form.cleaned_data['title']
         post.category = form.cleaned_data['category']
         post.text = form.cleaned_data['text']
-        if request.user.is_authenticated:
-            post.author = request.user
+        post.author = request.user
         Post.objects.create(
             post_img=post.post_img,
             title=post.title,
@@ -126,9 +125,8 @@ def add_comment_to_post(request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            if request.user.is_authenticated:
-                comment.author = request.user
-                comment.post = post
+            comment.author = request.user
+            comment.post = post
             comment.save()
             return redirect('blog:post_detail', pk=post.pk)
     else:
